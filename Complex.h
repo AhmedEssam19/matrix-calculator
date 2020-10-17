@@ -10,19 +10,19 @@ class Complex
 {
 private:
 
-	float real, imj;
+	double real, imj;
 
 public:
 	// Set initial value
 	Complex();
 
-	Complex(float real, float imj);
+	Complex(double real, double imj);
 	
 	// Set real value
-	void set_real(float real);
+	void set_real(double real);
 
 	// Set imaginary value
-	void set_imj(float imj);
+	void set_imj(double imj);
 
 	// Add operation
 	Complex operator +(Complex complex);
@@ -33,7 +33,7 @@ public:
 	// Multiply operation
 	Complex operator *(Complex ccomplex);
 
-	Complex operator *(float num);
+	Complex operator *(double num);
 	
 	// Equality check
 	bool operator ==(Complex c);

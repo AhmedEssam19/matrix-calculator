@@ -10,20 +10,20 @@ Complex::Complex()
     this->imj = 0;
 }
 
-Complex::Complex(float real, float imj)
+Complex::Complex(double real, double imj)
 {
 	this->real = real;
 	this-> imj = imj;
 }
 
 // Set real value
-void Complex::set_real(float real)
+void Complex::set_real(double real)
 {
 	this->real = real;
 }
 
 // Set imaginary value
-void Complex::set_imj(float imj){
+void Complex::set_imj(double imj){
 	this->imj  = imj;
 }
 
@@ -45,7 +45,7 @@ Complex Complex::operator *(Complex complex)
 	return Complex(real * complex.real - imj * complex.imj, real * complex.imj + imj * complex.real);
 }
 
-Complex Complex::operator *(float num)
+Complex Complex::operator *(double num)
 {
 	return Complex(real * num, imj * num);
 }
@@ -62,7 +62,7 @@ bool Complex::operator ==(Complex c)
 // 1 over complex 
 Complex Complex::inverted()
 {
-	float mag = real * real + imj * imj;
+	double mag = real * real + imj * imj;
 	return Complex(real / mag, -1 * imj / mag);
 }
 
