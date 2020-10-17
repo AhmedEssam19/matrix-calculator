@@ -1,0 +1,3 @@
+This program is used to make operations on matrices up to order 100x100. Operations are Adding(Enter +), subtract(Enter -), multiply(Enter -), power(Enter ^), transpose(Enter T), determinant(Enter D), inverse(Enter I) ande divide(Enter /).
+the program also support complex numbers. It useful for solving electrical circuits that contain energy storage elements with AC power sources and helps civil engineers
+to calculate the moment from complex matrices.
