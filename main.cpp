@@ -1,4 +1,5 @@
 #include "Complex.h"
+#include "helpers.h"
 
 // declaring matrices
 Complex matrix1[100][100];
@@ -192,8 +193,8 @@ int main(void)
 					for (int j = 0; j < col1; j++)
 					{
 						resmatrix[i][j] = temp[i][j];
-						temp[i][j].setreal(0);
-						temp[i][j].setimj(0);
+						temp[i][j].set_real(0);
+						temp[i][j].set_imj(0);
 					}
 				}
 
