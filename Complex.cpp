@@ -16,10 +16,38 @@ Complex::Complex(double real, double imj)
 	this-> imj = imj;
 }
 
-// Set real value
-void Complex::set_real(double real)
+Complex::Complex(string num)
 {
-	this->real = real;
+	real = 0;
+	imj = 0;
+
+	// Detect real part
+	string tmp;
+	for (int i = 0; i < num.length(); i++)
+	{
+		if (num[i] == '+' || num[i] == '-')
+		{
+			real = atof(tmp.c_str());
+			tmp = "";
+		}
+
+		else if (num[i] == 'i')
+		{
+			if (tmp == "")
+				imj = 1;
+			else
+			{
+				imj = atof(tmp.c_str());
+			}
+			tmp = "";
+			break;
+		}
+
+		tmp += num[i];
+	}
+
+	if (tmp != "")
+		real = atof(tmp.c_str());
 }
 
 // Set imaginary value
