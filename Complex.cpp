@@ -16,7 +16,7 @@ Complex::Complex(double real, double imj)
 	this-> imj = imj;
 }
 
-Complex::Complex(string num)
+Complex::Complex(const string& num)
 {
 	real = 0;
 	imj = 0;

@@ -18,7 +18,7 @@ public:
 
 	Complex(double real, double imj);
 
-	Complex(string num);
+	Complex(const string& num);
 	
 	// Set real value
 	void set_real(double real);
