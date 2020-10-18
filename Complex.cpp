@@ -33,8 +33,10 @@ Complex::Complex(const string& num)
 
 		else if (num[i] == 'i')
 		{
-			if (tmp == "")
+			if (tmp == "+" || tmp == "")
 				imj = 1;
+			else if (tmp == "-")
+				imj = -1;
 			else
 			{
 				imj = atof(tmp.c_str());
