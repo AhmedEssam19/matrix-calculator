@@ -50,8 +50,15 @@ Complex::Complex(string num)
 		real = atof(tmp.c_str());
 }
 
+// Set real value
+void Complex::set_real(double real)
+{
+	this->real = real;
+}
+
 // Set imaginary value
-void Complex::set_imj(double imj){
+void Complex::set_imj(double imj)
+{
 	this->imj  = imj;
 }
 
