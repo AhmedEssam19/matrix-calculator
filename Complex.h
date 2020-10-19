@@ -18,14 +18,8 @@ public:
 
 	Complex(double real, double imj);
 
-	Complex(const string& num);
+	Complex(const string& number);
 	
-	// Set real value
-	void set_real(double real);
-
-	// Set imaginary value
-	void set_imj(double imj);
-
 	// Add operation
 	Complex operator +(Complex complex);
 	

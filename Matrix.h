@@ -58,4 +58,6 @@ private:
     void copy_matrix(const Matrix& source);
 
     Matrix supp_matrix(size_t row, size_t col) const;
+
+    vector<vector<Complex> *> * get_2D_vector(size_t rows, size_t cols) const;
 };

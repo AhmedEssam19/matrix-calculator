@@ -1,5 +1,6 @@
 #include <string>
 #include "Complex.h"
+#include "helpers.h"
 
 using namespace std;
 
@@ -16,22 +17,22 @@ Complex::Complex(double real, double imj)
 	this-> imj = imj;
 }
 
-Complex::Complex(const string& num)
+Complex::Complex(const string& number)
 {
 	real = 0;
 	imj = 0;
-
+	
 	// Detect real part
 	string tmp;
-	for (int i = 0; i < num.length(); i++)
+	for (int i = 0; i < number.length(); i++)
 	{
-		if (num[i] == '+' || num[i] == '-')
+		if (number[i] == '+' || number[i] == '-')
 		{
 			real = atof(tmp.c_str());
 			tmp = "";
 		}
 
-		else if (num[i] == 'i')
+		else if (number[i] == 'i')
 		{
 			if (tmp == "+" || tmp == "")
 				imj = 1;
@@ -45,23 +46,11 @@ Complex::Complex(const string& num)
 			break;
 		}
 
-		tmp += num[i];
+		tmp += number[i];
 	}
 
 	if (tmp != "")
 		real = atof(tmp.c_str());
-}
-
-// Set real value
-void Complex::set_real(double real)
-{
-	this->real = real;
-}
-
-// Set imaginary value
-void Complex::set_imj(double imj)
-{
-	this->imj  = imj;
 }
 
 // Add operation
@@ -73,7 +62,7 @@ void Complex::set_imj(double imj)
 // Substract operation
 Complex Complex::operator -(Complex complex)
 {
-	return Complex(real - complex.real, imj - complex.real);
+	return Complex(real - complex.real, imj - complex.imj);
 }
 
 // Multiply operation

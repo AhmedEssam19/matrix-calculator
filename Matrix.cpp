@@ -7,8 +7,11 @@ Matrix::Matrix(): matrix{nullptr}, rows{0}, cols{0} {}
 
 Matrix::Matrix(const string& mat)
 {
+    string string_matrix = strip(mat);
+	string_matrix = string_matrix.substr(1, string_matrix.length() - 2);
+
     // split string to rows
-    vector<string>* rows_of_string = split(mat, ',');
+    vector<string>* rows_of_string = split(string_matrix, ',');
     this->rows = rows_of_string->size();
     this->cols = 0;
     matrix = new vector<vector<Complex>*>(rows);
@@ -107,7 +110,7 @@ vector<Complex>* Matrix::string_to_complex(string row)
 
 void Matrix::print() const
 {
-    cout << "RESULT: [";
+    cout << "Matrix: [";
 	for (int i = 0; i < rows; i++)
 	{
 		for (int j = 0; j < cols; j++)
@@ -137,7 +140,7 @@ void Matrix::free_memory()
 // Copy source matrix to caller matrix
 void Matrix::copy_matrix(const Matrix& source)
 {
-    matrix = new vector<vector<Complex>*>(rows, new vector<Complex>(cols));
+    matrix = get_2D_vector(rows, cols);
     for (size_t i = 0; i < rows; i++)
         for (size_t j = 0; j < cols; j++)
             this->at(i, j) = source.at(i, j);
@@ -146,7 +149,7 @@ void Matrix::copy_matrix(const Matrix& source)
 
 Matrix Matrix::operator+(Matrix mat) const
 {
-    vector<vector<Complex>*>* res_matrix = new vector<vector<Complex>*>(rows, new vector<Complex>(cols));
+    vector<vector<Complex>*>* res_matrix = get_2D_vector(rows, cols);
 
     for (int i = 0; i < rows; i++)
 		for (int j = 0; j < cols; j++)
@@ -158,7 +161,7 @@ Matrix Matrix::operator+(Matrix mat) const
 
 Matrix Matrix::operator-(Matrix mat) const
 {
-    vector<vector<Complex>*>* res_matrix = new vector<vector<Complex>*>(rows, new vector<Complex>(cols));
+    vector<vector<Complex>*>* res_matrix = get_2D_vector(rows, cols);
 
     for (int i = 0; i < rows; i++)
 		for (int j = 0; j < cols; j++)
@@ -170,7 +173,7 @@ Matrix Matrix::operator-(Matrix mat) const
 
 Matrix Matrix::operator*(Matrix mat) const
 {
-    vector<vector<Complex>*>* res_matrix = new vector<vector<Complex>*>(rows, new vector<Complex>(cols));
+    vector<vector<Complex>*>* res_matrix = get_2D_vector(this->rows, mat.cols);
 
     for (int i = 0; i < this->rows; i++)
 		for (int j = 0; j < mat.cols; j++)
@@ -183,12 +186,12 @@ Matrix Matrix::operator*(Matrix mat) const
 
 Matrix Matrix::transpose() const
 {
-    vector<vector<Complex>*>* res_matrix = new vector<vector<Complex>*>(cols, new vector<Complex>(rows));
+    vector<vector<Complex>*>* res_matrix = get_2D_vector(cols, rows);
 
     for (int i = 0; i < rows; i++)
 		for (int j = 0; j < cols; j++)
 			res_matrix->at(j)->at(i) = this->at(i, j);
-
+    
     return Matrix(res_matrix);
 }
 
@@ -225,8 +228,7 @@ Complex Matrix::determinant() const
 // Create supp matrix at specific element 
 Matrix Matrix::supp_matrix(size_t row_number, size_t col_number) const
 {
-    vector<vector<Complex>*>* new_matrix = new vector<vector<Complex>*>
-                                            (rows - 1, new vector<Complex>(cols - 1));
+    vector<vector<Complex>*>* new_matrix = get_2D_vector(rows - 1, cols - 1);
     size_t row = 0;
     for (size_t i = 0; i < rows; i++)
     {
@@ -254,7 +256,7 @@ Matrix Matrix::supp_matrix(size_t row_number, size_t col_number) const
 Matrix Matrix::inverse() const
 {
     Complex factor = determinant().inverted();
-    vector<vector<Complex>*>* res_matrix = new vector<vector<Complex>*>(rows, new vector<Complex>(cols));
+    vector<vector<Complex>*>* res_matrix = get_2D_vector(rows, cols);
 
     for (size_t i = 0; i < rows; i++)
         for (size_t j = 0; i < cols; j++)
@@ -267,4 +269,14 @@ Matrix Matrix::inverse() const
 Matrix Matrix::operator/(Matrix mat) const
 {
     return *this * mat.inverse();
+}
+
+
+vector<vector<Complex>*>* Matrix::get_2D_vector(size_t rows, size_t cols) const
+{
+    vector<vector<Complex>*>* array = new vector<vector<Complex>*> (rows);
+    for (size_t i = 0; i < rows; i++)
+        array->at(i) = new vector<Complex>(cols);
+    
+    return array;
 }
