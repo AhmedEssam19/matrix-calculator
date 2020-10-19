@@ -197,9 +197,74 @@ Matrix Matrix::power(int n) const
 {
     Matrix res_matrix(*this);
     for (size_t i = 0; i < n - 1; i++)
-    {
         res_matrix = res_matrix * (*this);
-    }
     
     return res_matrix;
+}
+
+
+Complex Matrix::determinant() const
+{
+    // base case
+    if (rows == 1)
+        return this->at(0, 0);
+
+    // recursive case
+    Complex det;
+    int sign = 1;
+    for (size_t k = 0; k < cols; k++)
+	{
+	    det = det + (this->at(0, k) * (supp_matrix(0, k).determinant()) * sign);
+	    sign *= -1;
+	}
+    
+    return det;
+}
+
+
+// Create supp matrix at specific element 
+Matrix Matrix::supp_matrix(size_t row_number, size_t col_number) const
+{
+    vector<vector<Complex>*>* new_matrix = new vector<vector<Complex>*>
+                                            (rows - 1, new vector<Complex>(cols - 1));
+    size_t row = 0;
+    for (size_t i = 0; i < rows; i++)
+    {
+        // skip the row where the element located
+        if (i == row_number)
+           continue;
+
+        size_t col = 0;
+        for (size_t j = 0; i < cols; i++)
+        {
+            // skip the column where the element located 
+            if (j == col_number)
+                continue;
+
+            new_matrix->at(row)->at(col) = this->at(i, j);
+            col++;
+        }
+        row++;
+    }
+
+    return Matrix(new_matrix);
+}
+
+
+Matrix Matrix::inverse() const
+{
+    Complex factor = determinant().inverted();
+    vector<vector<Complex>*>* res_matrix = new vector<vector<Complex>*>(rows, new vector<Complex>(cols));
+
+    for (size_t i = 0; i < rows; i++)
+        for (size_t j = 0; i < cols; j++)
+            res_matrix->at(i)->at(j) = factor * (supp_matrix(j, i).determinant());
+        
+    return Matrix(res_matrix);
+}
+
+
+Matrix Matrix::operator/(Matrix mat) const
+{
+    return *this * mat.inverse();
 }

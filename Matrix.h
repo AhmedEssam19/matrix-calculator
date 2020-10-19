@@ -46,7 +46,7 @@ public:
 
     Matrix inverse() const;
 
-    Matrix divide(Matrix mat) const;
+    Matrix operator/(Matrix mat) const;
 
     void print() const;
 
@@ -56,4 +56,6 @@ private:
     void free_memory();
 
     void copy_matrix(const Matrix& source);
+
+    Matrix supp_matrix(size_t row, size_t col) const;
 };
