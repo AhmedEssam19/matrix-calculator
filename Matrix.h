@@ -20,7 +20,13 @@ public:
 
     Matrix(vector<vector<Complex> *> * matrix);
 
+    Matrix(const Matrix& source);
+
+    Matrix(Matrix&& source);
+
     ~Matrix();
+
+    Complex& at(size_t i, size_t j) const;
 
     Matrix operator+(Matrix mat) const;
 

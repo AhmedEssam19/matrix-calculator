@@ -25,6 +25,21 @@ Matrix::Matrix(const string& mat)
 Matrix::Matrix(vector<vector<Complex> *> * matrix):matrix{matrix}, rows{matrix->size()}, 
 cols{matrix->at(0)->size()} {}
 
+// Copy constructor
+Matrix::Matrix(const Matrix& source): rows{source.rows}, cols{source.cols}
+{
+    matrix = new vector<vector<Complex>*>(rows, new vector<Complex>(cols));
+    for (size_t i = 0; i < rows; i++)
+        for (size_t j = 0; j < cols; j++)
+            matrix->at(i)->at(j) = source.at(i, j);
+}
+
+// Move construcor
+Matrix::Matrix(Matrix&& source): matrix{source.matrix}
+{
+    source.matrix = nullptr;
+}
+
 // Destructor
 Matrix::~Matrix()
 {
@@ -32,6 +47,12 @@ Matrix::~Matrix()
         delete matrix->at(i);
 
     delete matrix;
+}
+
+// Access matrix elements
+Complex& Matrix::at(size_t i, size_t j) const
+{
+    return matrix->at(i)->at(j);
 }
 
 // Convert string to vector of Complex objects
