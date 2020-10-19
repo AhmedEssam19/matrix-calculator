@@ -24,8 +24,13 @@ Matrix::Matrix(const string& mat)
 }
 
 
-Matrix::Matrix(vector<vector<Complex> *> * matrix): matrix{matrix}, rows{matrix->size()}, 
-cols{matrix->at(0)->size()} {}
+Matrix::Matrix(vector<vector<Complex> *> * matrix): matrix{matrix}, rows{matrix->size()}
+{
+    if (rows > 0)
+        cols = matrix->at(0)->size();
+    else
+        cols = 0;
+}
 
 
 // Copy constructor
@@ -136,4 +141,65 @@ void Matrix::copy_matrix(const Matrix& source)
     for (size_t i = 0; i < rows; i++)
         for (size_t j = 0; j < cols; j++)
             this->at(i, j) = source.at(i, j);
+}
+
+
+Matrix Matrix::operator+(Matrix mat) const
+{
+    vector<vector<Complex>*>* res_matrix = new vector<vector<Complex>*>(rows, new vector<Complex>(cols));
+
+    for (int i = 0; i < rows; i++)
+		for (int j = 0; j < cols; j++)
+			res_matrix->at(i)->at(j) = this->at(i, j) + mat.at(i, j);
+
+    return Matrix(res_matrix);
+}
+
+
+Matrix Matrix::operator-(Matrix mat) const
+{
+    vector<vector<Complex>*>* res_matrix = new vector<vector<Complex>*>(rows, new vector<Complex>(cols));
+
+    for (int i = 0; i < rows; i++)
+		for (int j = 0; j < cols; j++)
+			res_matrix->at(i)->at(j) = this->at(i, j) - mat.at(i, j);
+
+    return Matrix(res_matrix);
+}
+
+
+Matrix Matrix::operator*(Matrix mat) const
+{
+    vector<vector<Complex>*>* res_matrix = new vector<vector<Complex>*>(rows, new vector<Complex>(cols));
+
+    for (int i = 0; i < this->rows; i++)
+		for (int j = 0; j < mat.cols; j++)
+			for (int k = 0; k < this->cols; k++)
+					res_matrix->at(i)->at(j) = res_matrix->at(i)->at(j) + this->at(i, k) * mat.at(k, j);
+        
+    return Matrix(res_matrix);
+}
+
+
+Matrix Matrix::transpose() const
+{
+    vector<vector<Complex>*>* res_matrix = new vector<vector<Complex>*>(cols, new vector<Complex>(rows));
+
+    for (int i = 0; i < rows; i++)
+		for (int j = 0; j < cols; j++)
+			res_matrix->at(j)->at(i) = this->at(i, j);
+
+    return Matrix(res_matrix);
+}
+
+
+Matrix Matrix::power(int n) const
+{
+    Matrix res_matrix(*this);
+    for (size_t i = 0; i < n - 1; i++)
+    {
+        res_matrix = res_matrix * (*this);
+    }
+    
+    return res_matrix;
 }
