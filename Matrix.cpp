@@ -31,7 +31,7 @@ Matrix::Matrix(const Matrix& source): rows{source.rows}, cols{source.cols}
     matrix = new vector<vector<Complex>*>(rows, new vector<Complex>(cols));
     for (size_t i = 0; i < rows; i++)
         for (size_t j = 0; j < cols; j++)
-            matrix->at(i)->at(j) = source.at(i, j);
+            this->at(i, j) = source.at(i, j);
 }
 
 // Move construcor
@@ -43,7 +43,7 @@ Matrix::Matrix(Matrix&& source): matrix{source.matrix}
 // Destructor
 Matrix::~Matrix()
 {
-    Matrix::free_memory();
+    this->free_memory();
 }
 
 // Access matrix elements
@@ -71,7 +71,7 @@ void Matrix::print() const
 	{
 		for (int j = 0; j < cols; j++)
 		{
-			matrix->at(i)->at(j).print();
+			this->at(i, j).print();
 
 			if (j != cols - 1)
 				cout << ' ';
