@@ -28,6 +28,10 @@ public:
 
     Complex& at(size_t i, size_t j) const;
 
+    Matrix& operator=(const Matrix& source);
+
+    Matrix& operator=(Matrix&& source);
+
     Matrix operator+(Matrix mat) const;
 
     Matrix operator-(Matrix mat) const;
@@ -50,4 +54,6 @@ private:
     vector<Complex>* string_to_complex(string row);
 
     void free_memory();
+
+    void copy_matrix(const Matrix& source);
 };

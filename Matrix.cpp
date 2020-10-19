@@ -2,7 +2,8 @@
 #include "helpers.h"
 
 // No-Arg constructor
-Matrix::Matrix():matrix{nullptr}, rows{0}, cols{0} {}
+Matrix::Matrix(): matrix{nullptr}, rows{0}, cols{0} {}
+
 
 Matrix::Matrix(const string& mat)
 {
@@ -22,23 +23,24 @@ Matrix::Matrix(const string& mat)
     delete rows_of_string;
 }
 
-Matrix::Matrix(vector<vector<Complex> *> * matrix):matrix{matrix}, rows{matrix->size()}, 
+
+Matrix::Matrix(vector<vector<Complex> *> * matrix): matrix{matrix}, rows{matrix->size()}, 
 cols{matrix->at(0)->size()} {}
+
 
 // Copy constructor
 Matrix::Matrix(const Matrix& source): rows{source.rows}, cols{source.cols}
 {
-    matrix = new vector<vector<Complex>*>(rows, new vector<Complex>(cols));
-    for (size_t i = 0; i < rows; i++)
-        for (size_t j = 0; j < cols; j++)
-            this->at(i, j) = source.at(i, j);
+    this->copy_matrix(source);
 }
 
+
 // Move construcor
-Matrix::Matrix(Matrix&& source): matrix{source.matrix}
+Matrix::Matrix(Matrix&& source): matrix{source.matrix}, rows{source.rows}, cols{source.cols}
 {
     source.matrix = nullptr;
 }
+
 
 // Destructor
 Matrix::~Matrix()
@@ -46,11 +48,44 @@ Matrix::~Matrix()
     this->free_memory();
 }
 
+
 // Access matrix elements
 Complex& Matrix::at(size_t i, size_t j) const
 {
     return matrix->at(i)->at(j);
 }
+
+
+// Copy assignment
+Matrix& Matrix::operator=(const Matrix& source)
+{
+    if (this == &source)
+        return *this;
+
+    free_memory();
+    this->rows = source.rows;
+    this->cols = source.cols;
+    copy_matrix(source);
+
+    return *this;
+}
+
+
+// Move assignment
+Matrix& Matrix::operator=(Matrix&& source)
+{
+    if (this == &source)
+        return *this;
+
+    free_memory();
+    matrix = source.matrix;
+    this->rows = source.rows;
+    this->cols = source.cols;
+    source.matrix = nullptr;
+    
+    return *this;
+}
+
 
 // Convert string to vector of Complex objects
 vector<Complex>* Matrix::string_to_complex(string row)
@@ -63,6 +98,7 @@ vector<Complex>* Matrix::string_to_complex(string row)
     delete row_of_strings;
     return vec;
 }
+
 
 void Matrix::print() const
 {
@@ -82,6 +118,7 @@ void Matrix::print() const
 	cout << "]\n";
 }
 
+
 // Free allocated memory
 void Matrix::free_memory()
 {
@@ -89,4 +126,14 @@ void Matrix::free_memory()
         delete matrix->at(i);
 
     delete matrix;
+}
+
+
+// Copy source matrix to caller matrix
+void Matrix::copy_matrix(const Matrix& source)
+{
+    matrix = new vector<vector<Complex>*>(rows, new vector<Complex>(cols));
+    for (size_t i = 0; i < rows; i++)
+        for (size_t j = 0; j < cols; j++)
+            this->at(i, j) = source.at(i, j);
 }
