@@ -43,10 +43,7 @@ Matrix::Matrix(Matrix&& source): matrix{source.matrix}
 // Destructor
 Matrix::~Matrix()
 {
-    for (size_t i = 0; i < rows; i++)
-        delete matrix->at(i);
-
-    delete matrix;
+    Matrix::free_memory();
 }
 
 // Access matrix elements
@@ -83,4 +80,13 @@ void Matrix::print() const
 			cout << ", ";
 	}
 	cout << "]\n";
+}
+
+// Free allocated memory
+void Matrix::free_memory()
+{
+    for (size_t i = 0; i < rows; i++)
+        delete matrix->at(i);
+
+    delete matrix;
 }

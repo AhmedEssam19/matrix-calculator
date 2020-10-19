@@ -48,4 +48,6 @@ public:
 
 private:
     vector<Complex>* string_to_complex(string row);
+
+    void free_memory();
 };
