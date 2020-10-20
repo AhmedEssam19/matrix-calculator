@@ -193,6 +193,13 @@ void Matrix::copy_matrix(const Matrix& source)
 
 Matrix Matrix::operator+(const Matrix& mat) const
 {
+    // check that both matrices have the same shape
+    if (this->rows != mat.rows || this->cols != mat.cols)
+    {
+        cout << "ERROR: matrices don't have the same shape.\n";
+        throw exception();
+    }
+
     vector<vector<Complex>*>* res_matrix = get_2D_vector(rows, cols);
 
     for (int i = 0; i < rows; i++)
@@ -205,6 +212,13 @@ Matrix Matrix::operator+(const Matrix& mat) const
 
 Matrix Matrix::operator-(const Matrix& mat) const
 {
+    // check that both matrices have the same shape
+    if (this->rows != mat.rows || this->cols != mat.cols)
+    {
+        cout << "ERROR: matrices don't have the same shape.\n";
+        throw exception();
+    }
+
     vector<vector<Complex>*>* res_matrix = get_2D_vector(rows, cols);
 
     for (int i = 0; i < rows; i++)
@@ -217,6 +231,12 @@ Matrix Matrix::operator-(const Matrix& mat) const
 
 Matrix Matrix::operator*(const Matrix& mat) const
 {
+    if (this->cols != mat.rows)
+    {
+        cout << "Error: dimention mismatch.\n";
+        throw exception();
+    }
+
     vector<vector<Complex>*>* res_matrix = get_2D_vector(this->rows, mat.cols);
 
     for (int i = 0; i < this->rows; i++)
@@ -240,8 +260,21 @@ Matrix Matrix::transpose() const
 }
 
 
-Matrix Matrix::power(int n) const
+Matrix Matrix::power(double n) const
 {
+    // must be square matrix
+    if (this->cols != this->rows)
+    {
+        cout << "Error: not square matrix.\n";
+        throw exception();
+    }
+    // integer must be positive integer
+    if (int(n) != n || int(n) < 1)
+    {
+        cout << "Error: non-positive integer power.\n";
+        throw exception();
+    }
+
     Matrix res_matrix(*this);
     for (size_t i = 0; i < n - 1; i++)
         res_matrix = res_matrix * (*this);
@@ -252,6 +285,13 @@ Matrix Matrix::power(int n) const
 
 Complex Matrix::determinant() const
 {
+    // must be square matrix
+    if (this->cols != this->rows)
+    {
+        cout << "Error: not square matrix.\n";
+        throw exception();
+    }
+
     // base case
     if (rows == 1)
         return this->at(0, 0);
@@ -299,6 +339,13 @@ Matrix Matrix::supp_matrix(size_t row_number, size_t col_number) const
 
 Matrix Matrix::inverse() const
 {
+    // must be square matrix
+    if (this->cols != this->rows)
+    {
+        cout << "Error: not square matrix.\n";
+        throw exception();
+    }
+
     Complex factor = determinant().inverted();
     vector<vector<Complex>*>* res_matrix = get_2D_vector(rows, cols);
 
@@ -312,6 +359,13 @@ Matrix Matrix::inverse() const
 
 Matrix Matrix::operator/(const Matrix& mat) const
 {
+    // must be square matrix
+    if (this->cols != this->rows)
+    {
+        cout << "Error: not square matrix.\n";
+        throw exception();
+    }
+
     return *this * mat.inverse();
 }
 

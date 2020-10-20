@@ -45,7 +45,7 @@ public:
 
     Matrix transpose() const;
 
-    Matrix power(int n) const;
+    Matrix power(double n) const;
 
     Complex determinant() const;
 
