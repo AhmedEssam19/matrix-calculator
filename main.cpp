@@ -28,7 +28,7 @@ int main(void)
 		cout << "Enter second matrix: ";
 		getline(cin, mat2);
 		Matrix matrix2 (mat2);
-		cout << matrix1 + matrix2;
+		cout << "Result: " << matrix1 + matrix2;
 	}
 
 	// substract operation
@@ -40,7 +40,7 @@ int main(void)
 		getline(cin, mat2);
 		Matrix matrix2 (mat2);
 
-		cout << matrix1 - matrix2;
+		cout << "Result: " << matrix1 - matrix2;
 	}
 
 	// multiplication operation
@@ -52,7 +52,7 @@ int main(void)
 		getline(cin, mat2);
 		Matrix matrix2 (mat2);
 
-		cout << matrix1 * matrix2;
+		cout << "Result: " << matrix1 * matrix2;
 	}
 
 	// power operation
@@ -61,25 +61,25 @@ int main(void)
 		float n;
 		cout << "Enter positive integer: ";
 		cin >> n;
-		cout << matrix1.power(n);
+		cout << "Result: " << matrix1.power(n);
 	}
 
 	// transpose operation
 	else if (operation == 'T')
 	{
-		cout << matrix1.transpose();
+		cout << "Result: " << matrix1.transpose();
 	}
 
 	//  calculate deerminant
 	else if (operation == 'D')
 	{
-		cout << matrix1.determinant() << endl;
+		cout << "Result: " << matrix1.determinant() << endl;
 	}
 
 	// inverse matrix
 	else if (operation == 'I')
 	{
-		cout << matrix1.inverse();
+		cout << "Result: " << matrix1.inverse();
 	}
 
 	// Divide opertaion
@@ -91,7 +91,7 @@ int main(void)
 		getline(cin, mat2);
 		Matrix matrix2 (mat2);
 
-		cout << matrix1 / matrix2;
+		cout << "Result: " << matrix1 / matrix2;
 	}
 
 	else
