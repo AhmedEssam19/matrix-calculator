@@ -16,8 +16,8 @@ Operations are Add, Subtract, Inverse, Multiply, Transpose, Determinant, Power, 
 * For power operation enter '^', then enter positive integer as the power.
 * For Transpose operation enter 'T'.
 * For Determinant operation `|A|` enter 'D'.
-* For Inverse operation`A <sup>-1</sup>` enter 'I'.
-* For Divide operation `A / B = A.B<sup>-1</sup>`enter '/'.
+* For Inverse operation`A^-1` enter 'I'.
+* For Divide operation `A / B = A.B^-1`enter '/'.
 
 
 ## Example
