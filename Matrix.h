@@ -32,11 +32,11 @@ public:
 
     Matrix& operator=(Matrix&& source);
 
-    Matrix operator+(Matrix mat) const;
+    Matrix operator+(const Matrix& mat) const;
 
-    Matrix operator-(Matrix mat) const;
+    Matrix operator-(const Matrix& mat) const;
 
-    Matrix operator*(Matrix mat) const;
+    Matrix operator*(const Matrix& mat) const;
 
     Matrix transpose() const;
 
@@ -46,9 +46,11 @@ public:
 
     Matrix inverse() const;
 
-    Matrix operator/(Matrix mat) const;
+    Matrix operator/(const Matrix& mat) const;
 
     void print() const;
+
+    bool operator==(const Matrix& mat) const;
 
 private:
     vector<Complex>* string_to_complex(string row);

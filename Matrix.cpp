@@ -147,7 +147,7 @@ void Matrix::copy_matrix(const Matrix& source)
 }
 
 
-Matrix Matrix::operator+(Matrix mat) const
+Matrix Matrix::operator+(const Matrix& mat) const
 {
     vector<vector<Complex>*>* res_matrix = get_2D_vector(rows, cols);
 
@@ -159,7 +159,7 @@ Matrix Matrix::operator+(Matrix mat) const
 }
 
 
-Matrix Matrix::operator-(Matrix mat) const
+Matrix Matrix::operator-(const Matrix& mat) const
 {
     vector<vector<Complex>*>* res_matrix = get_2D_vector(rows, cols);
 
@@ -171,7 +171,7 @@ Matrix Matrix::operator-(Matrix mat) const
 }
 
 
-Matrix Matrix::operator*(Matrix mat) const
+Matrix Matrix::operator*(const Matrix& mat) const
 {
     vector<vector<Complex>*>* res_matrix = get_2D_vector(this->rows, mat.cols);
 
@@ -266,7 +266,7 @@ Matrix Matrix::inverse() const
 }
 
 
-Matrix Matrix::operator/(Matrix mat) const
+Matrix Matrix::operator/(const Matrix& mat) const
 {
     return *this * mat.inverse();
 }
@@ -279,4 +279,19 @@ vector<vector<Complex>*>* Matrix::get_2D_vector(size_t rows, size_t cols) const
         array->at(i) = new vector<Complex>(cols);
     
     return array;
+}
+
+
+// check for equality
+bool Matrix::operator==(const Matrix& mat) const
+{
+    if (!(this->rows == mat.rows && this->cols == mat.cols))
+        return false;
+    
+    for (size_t i = 0; i < rows; i++)
+        for (size_t j = 0; j < cols; j++)
+            if (!(this->at(i, j) == this->at(i, j)))
+                return false;
+        
+    return true;
 }
