@@ -9,13 +9,13 @@ int main(void)
 {
 	// Get first matrix from user
 	string mat1;
-	cout << "ENTER FIRST MATRIX: ";
+	cout << "Enter first matrix: ";
 	getline(cin, mat1);
 	Matrix matrix1 (mat1);
 	
 	// get operator
 	char operation;
-	cout << "ENTER OPERATOR: ";
+	cout << "Enter operator: ";
 	cin >> operation;
 	cin.clear();
 	cin.ignore(10000, '\n');
@@ -25,7 +25,7 @@ int main(void)
 	{
 		// get another matrix from user
 		string mat2;	
-		cout << "ENTER SECOND MATRIX: ";
+		cout << "Enter second matrix: ";
 		getline(cin, mat2);
 		Matrix matrix2 (mat2);
 		cout << matrix1 + matrix2;
@@ -36,7 +36,7 @@ int main(void)
 	{
 		// get another matrix from user
 		string mat2;	
-		cout << "ENTER SECOND MATRIX: ";
+		cout << "Enter second matrix: ";
 		getline(cin, mat2);
 		Matrix matrix2 (mat2);
 
@@ -48,7 +48,7 @@ int main(void)
 	{
 		// get another matrix from user
 		string mat2;	
-		cout << "ENTER SECOND MATRIX: ";
+		cout << "Enter second matrix: ";
 		getline(cin, mat2);
 		Matrix matrix2 (mat2);
 
@@ -59,7 +59,7 @@ int main(void)
 	else if (operation == '^')
 	{
 		float n;
-		cout << "Enter Positive Integer: ";
+		cout << "Enter positive integer: ";
 		cin >> n;
 		cout << matrix1.power(n);
 	}
@@ -87,7 +87,7 @@ int main(void)
 	{
 		// get another matrix from user
 		string mat2;	
-		cout << "ENTER SECOND MATRIX: ";
+		cout << "Enter second matrix: ";
 		getline(cin, mat2);
 		Matrix matrix2 (mat2);
 
@@ -96,7 +96,7 @@ int main(void)
 
 	else
 	{
-		cout << "UNDEFINED OPERATOR\n";
+		cout << "Invalid operator\n";
 		return 1;
 	}
 
