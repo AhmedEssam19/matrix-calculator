@@ -32,7 +32,7 @@ Complex::Complex(const string& number)
 			tmp = "";
 		}
 
-		else if (number[i] == 'i')
+		else if (number[i] == 'j')
 		{
 			if (tmp == "+" || tmp == "")
 				imj = 1;
@@ -99,15 +99,15 @@ void Complex::print()
 	{
 		if (imj > 0)
 			if (imj == 1)
-				cout << real << "+" << "i";
+				cout << real << "+" << "j";
 			else
-				cout << real << "+" << imj << "i";
+				cout << real << "+" << imj << "j";
 
 		else if (imj < 0)
 			if (imj == -1)
-				cout << real << "-i";
+				cout << real << "-j";
 			else
-				cout << real << imj << "i";
+				cout << real << imj << "j";
 
 		else
 			cout << real;
@@ -117,13 +117,13 @@ void Complex::print()
 	{
 		if (imj != 0)
 			if (imj == 1)
-				cout << "i";
+				cout << "j";
 
 			else if (imj == -1)
-				cout << "-i";
+				cout << "-j";
 
 			else
-				cout << imj << "i";
+				cout << imj << "j";
 
 		else
 			cout << "0";
