@@ -1,6 +1,10 @@
 #include "Matrix.h"
 #include "helpers.h"
 
+const set<char> Matrix::ALLOWED_CHARACTERS {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+                                            '.', '+', '-', 'j', 'e', ' ', ','};
+
+
 // No-Arg constructor
 Matrix::Matrix(): matrix{nullptr}, rows{0}, cols{0} {}
 
@@ -8,8 +12,23 @@ Matrix::Matrix(): matrix{nullptr}, rows{0}, cols{0} {}
 Matrix::Matrix(const string& mat)
 {
     string string_matrix = strip(mat);
-	string_matrix = string_matrix.substr(1, string_matrix.length() - 2);
+    if (string_matrix.front() != '[' || string_matrix.back() != ']')
+    {
+        cout << "ERROR: missing square brackets.\n";
+        throw exception();
+    }
+    string_matrix = string_matrix.substr(1, string_matrix.length() - 2);
 
+    for (size_t i = 0; i < string_matrix.length(); i++)
+    {
+        auto it = ALLOWED_CHARACTERS.find(string_matrix[i]);
+        if (it == ALLOWED_CHARACTERS.end())
+        {
+            cout << "ERROR: invalid character(s).\n";
+            throw exception();
+        }
+    }
+    
     // split string to rows
     vector<string>* rows_of_string = split(string_matrix, ',');
     this->rows = rows_of_string->size();
@@ -20,7 +39,13 @@ Matrix::Matrix(const string& mat)
     for (size_t i = 0; i < rows; i++)
     {
         matrix->at(i) = string_to_complex(rows_of_string->at(i));
-        this->cols = matrix->at(i)->size();
+        if (i == 0)
+            this->cols = matrix->at(i)->size();
+        if (this->cols != matrix->at(i)->size())
+        {
+            cout << "ERROR: non-consistent number of element in row.\n";
+            throw exception();
+        }
     }
 
     delete rows_of_string;

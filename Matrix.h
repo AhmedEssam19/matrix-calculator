@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include <set>
 #include "Complex.h"
 using namespace std;
 
@@ -11,7 +12,7 @@ private:
     vector<vector<Complex> *> * matrix;
     size_t rows;
     size_t cols;
-
+    static const set<char> ALLOWED_CHARACTERS;
 public:
 
     Matrix();
