@@ -26,7 +26,7 @@ Complex::Complex(const string& number)
 	string tmp;
 	for (int i = 0; i < number.length(); i++)
 	{
-		if (number[i] == '+' || number[i] == '-')
+		if ((number[i] == '+' || number[i] == '-') && tmp.back() != 'e')
 		{
 			real = atof(tmp.c_str());
 			tmp = "";
@@ -79,7 +79,7 @@ Complex Complex::operator *(double num)
 // Equality check
 bool Complex::operator ==(Complex c)
 {
-	if (real == c.real && imj == c.imj)
+	if (round(real, 3) == round(c.real, 3) && round(imj, 3) == round(c.imj, 3))
 		return true;
 	else
 		return false;

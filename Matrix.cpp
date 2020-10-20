@@ -110,7 +110,7 @@ vector<Complex>* Matrix::string_to_complex(string row)
 
 void Matrix::print() const
 {
-    cout << "Matrix: [";
+    cout << "[";
 	for (int i = 0; i < rows; i++)
 	{
 		for (int j = 0; j < cols; j++)
@@ -130,6 +130,9 @@ void Matrix::print() const
 // Free allocated memory
 void Matrix::free_memory()
 {
+    if (matrix == nullptr)
+        return;
+
     for (size_t i = 0; i < rows; i++)
         delete matrix->at(i);
 
@@ -237,7 +240,7 @@ Matrix Matrix::supp_matrix(size_t row_number, size_t col_number) const
            continue;
 
         size_t col = 0;
-        for (size_t j = 0; i < cols; i++)
+        for (size_t j = 0; j < cols; j++)
         {
             // skip the column where the element located 
             if (j == col_number)
@@ -259,8 +262,8 @@ Matrix Matrix::inverse() const
     vector<vector<Complex>*>* res_matrix = get_2D_vector(rows, cols);
 
     for (size_t i = 0; i < rows; i++)
-        for (size_t j = 0; i < cols; j++)
-            res_matrix->at(i)->at(j) = factor * (supp_matrix(j, i).determinant());
+        for (size_t j = 0; j < cols; j++)
+            res_matrix->at(i)->at(j) = factor * (supp_matrix(j, i).determinant()) * pow(-1, i + j);
         
     return Matrix(res_matrix);
 }
@@ -285,12 +288,15 @@ vector<vector<Complex>*>* Matrix::get_2D_vector(size_t rows, size_t cols) const
 // check for equality
 bool Matrix::operator==(const Matrix& mat) const
 {
+    if (this == &mat)
+        return true;
+
     if (!(this->rows == mat.rows && this->cols == mat.cols))
         return false;
     
     for (size_t i = 0; i < rows; i++)
         for (size_t j = 0; j < cols; j++)
-            if (!(this->at(i, j) == this->at(i, j)))
+            if (!(this->at(i, j) == mat.at(i, j)))
                 return false;
         
     return true;

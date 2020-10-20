@@ -1,5 +1,7 @@
 #include "helpers.h"
+#include "Matrix.h"
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 // split string on a specific character to a vector of strings 
@@ -61,6 +63,59 @@ void print_vector(vector<vector<Complex>*>* matrix)
             matrix->at(i)->at(j).print();
             cout << " ";
         }  
+        cout << endl;
+    }
+}
+
+double round(double value, int precision)
+{
+	long long power = pow(10, precision);
+	double val = (long) (value * power + 0.5);
+	return (double) val / power;
+}
+
+
+Matrix get_matrix(ifstream& in_file)
+{
+    string line;
+    getline(in_file, line);
+    size_t idx = line.find(':');
+    return Matrix(line.substr(idx + 2));
+}
+
+
+void check_matrices(const Matrix& matrix1, const Matrix& matrix2)
+{
+    if (matrix1 == matrix2)
+        cout << "passed.\n";
+    else
+    {
+        cout << "failed.\n";
+        matrix1.print();
+        matrix2.print();
+    }
+}
+
+
+Complex get_complex(ifstream& in_file)
+{
+    string line;
+    getline(in_file, line);
+    size_t idx = line.find(':');
+    return Complex(line.substr(idx + 2));
+}
+
+
+void check_complex(Complex complex1, Complex complex2)
+{
+    if (complex1 == complex2)
+        cout << "passed.\n";
+    else
+    {
+        cout << "failed.\n";
+        complex1.print();
+        cout << endl;
+        complex2.print();
         cout << endl;
     }
 }

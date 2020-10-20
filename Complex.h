@@ -27,7 +27,7 @@ public:
 	Complex operator -(Complex complex);
 
 	// Multiply operation
-	Complex operator *(Complex ccomplex);
+	Complex operator *(Complex complex);
 
 	Complex operator *(double num);
 	
