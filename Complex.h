@@ -20,6 +20,10 @@ public:
 
 	Complex(const string& number);
 	
+	double get_real() const;
+
+	double get_imj() const;
+
 	// Add operation
 	Complex operator +(Complex complex);
 	
@@ -36,7 +40,7 @@ public:
 
 	// 1 over complex 
 	Complex inverted();
-
-	// Print to user
-	void print();
 };
+
+
+ostream& operator<<(ostream& os, const Complex& complex);

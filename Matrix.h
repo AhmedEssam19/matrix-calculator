@@ -28,6 +28,10 @@ public:
 
     Complex& at(size_t i, size_t j) const;
 
+    size_t get_columns() const;
+
+    size_t get_rows() const;
+
     Matrix& operator=(const Matrix& source);
 
     Matrix& operator=(Matrix&& source);
@@ -48,8 +52,6 @@ public:
 
     Matrix operator/(const Matrix& mat) const;
 
-    void print() const;
-
     bool operator==(const Matrix& mat) const;
 
 private:
@@ -63,3 +65,5 @@ private:
 
     vector<vector<Complex> *> * get_2D_vector(size_t rows, size_t cols) const;
 };
+
+ostream& operator<<(ostream& os, const Matrix& matrix);

@@ -64,6 +64,20 @@ Complex& Matrix::at(size_t i, size_t j) const
 }
 
 
+// Get number of columns
+size_t Matrix::get_columns() const
+{
+    return cols;
+}
+
+
+// Get number of rows
+size_t Matrix::get_rows() const
+{
+    return rows;
+}
+
+
 // Copy assignment
 Matrix& Matrix::operator=(const Matrix& source)
 {
@@ -108,22 +122,24 @@ vector<Complex>* Matrix::string_to_complex(string row)
 }
 
 
-void Matrix::print() const
+ostream& operator<<(ostream& os, const Matrix& matrix)
 {
-    cout << "[";
+    size_t rows = matrix.get_rows();
+    size_t cols = matrix.get_columns();
+    os << "[";
 	for (int i = 0; i < rows; i++)
 	{
 		for (int j = 0; j < cols; j++)
 		{
-			this->at(i, j).print();
+			cout << matrix.at(i, j);
 
 			if (j != cols - 1)
-				cout << ' ';
+				os << ' ';
 		}
 		if (i != rows - 1)
-			cout << ", ";
+			os << ", ";
 	}
-	cout << "]\n";
+	os << "]\n";
 }
 
 

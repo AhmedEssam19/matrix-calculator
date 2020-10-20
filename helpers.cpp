@@ -54,19 +54,6 @@ string strip(string txt)
 }
 
 
-void print_vector(vector<vector<Complex>*>* matrix)
-{
-    for (size_t i = 0; i < matrix->size(); i++)
-    {
-        for (size_t j = 0; j < matrix->at(i)->size(); j++)
-        {
-            matrix->at(i)->at(j).print();
-            cout << " ";
-        }  
-        cout << endl;
-    }
-}
-
 double round(double value, int precision)
 {
 	long long power = pow(10, precision);
@@ -91,8 +78,8 @@ void check_matrices(const Matrix& matrix1, const Matrix& matrix2)
     else
     {
         cout << "failed.\n";
-        matrix1.print();
-        matrix2.print();
+        cout << matrix1;
+        cout << matrix2;
     }
 }
 
@@ -113,9 +100,7 @@ void check_complex(Complex complex1, Complex complex2)
     else
     {
         cout << "failed.\n";
-        complex1.print();
-        cout << endl;
-        complex2.print();
-        cout << endl;
+        cout << complex1 << endl;
+        cout << complex2 << endl;
     }
 }

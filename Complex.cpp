@@ -53,6 +53,18 @@ Complex::Complex(const string& number)
 		real = atof(tmp.c_str());
 }
 
+// get real value
+double Complex::get_real() const
+{
+	return real;
+}
+
+// get imj value
+double Complex::get_imj() const
+{
+	return imj;
+}
+
 // Add operation
  Complex Complex::operator +(Complex complex)
 {
@@ -93,8 +105,11 @@ Complex Complex::inverted()
 }
 
 // Print to user
-void Complex::print()
+ostream& operator<<(ostream& os, const Complex& complex)
 {
+	double real = complex.get_real();
+	double imj = complex.get_imj();
+
 	if (real != 0)
 	{
 		if (imj > 0)
